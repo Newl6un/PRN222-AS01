@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\LeHoangNhatTanRazorPages.BO\LeHoangNhatTanRazorPages.BO.csproj" />
+		<ProjectReference Include="..\LeHoangNhatTanRazorPages.DataAccess\LeHoangNhatTanRazorPages.DataAccess.csproj" />
+		<ProjectReference Include="..\LeHoangNhatTanRazorPages.Shared\LeHoangNhatTanRazorPages.Shared.csproj" />
+	</ItemGroup>
+
+</Project>
