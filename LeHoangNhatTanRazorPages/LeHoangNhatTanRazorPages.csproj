@@ -7,6 +7,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="ViewModels\**" />
+	  <Content Remove="ViewModels\**" />
+	  <EmbeddedResource Remove="ViewModels\**" />
+	  <None Remove="ViewModels\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\LeHoangNhatTanRazorPages.BO\LeHoangNhatTanRazorPages.BO.csproj" />
 		<ProjectReference Include="..\LeHoangNhatTanRazorPages.Services\LeHoangNhatTanRazorPages.Services.csproj" />
 	</ItemGroup>

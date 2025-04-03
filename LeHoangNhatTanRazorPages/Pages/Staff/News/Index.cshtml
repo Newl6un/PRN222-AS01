@@ -1,0 +1,80 @@
+﻿@page
+@model LeHoangNhatTanRazorPages.Pages.Staff.News.IndexModel
+@{
+}
+<partial name="~/Pages/Shared/_SessionAuth.cshtml" />
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-newspaper"></i> Quản lý tin tức</h2>
+        <button type="button" class="btn btn-primary" onclick="modalDialogManager.loadFormModal('@Url.Page("/Staff/News/Index","Create")', '#commonModal')">
+            <i class="bi bi-plus-circle"></i> Tạo tin tức mới
+        </button>
+    </div>
+    <div class="card shadow">
+        <div class="card-header bg-white border-bottom">
+            <div class="row g-3 align-items-center">
+                <div class="col-12 col-md-4">
+                    <h5 class="mb-0 text-primary">
+                        <i class="bi bi-newspaper me-2"></i>Danh sách tin tức
+                    </h5>
+                </div>
+
+                <div class="col-12 col-md-8">
+                    <div class="d-flex gap-2 justify-content-md-end">
+                        <!-- Dropdown Sắp xếp -->
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-outline-secondary d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-sort-down me-2"></i>
+                                Sắp xếp theo
+                                <i class="bi bi-chevron-down ms-2"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="?OrderBy=CreatedDate desc">
+                                        <i class="bi bi-calendar-check me-2"></i>
+                                        Ngày tạo (mới nhất)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="?OrderBy=CreatedDate">
+                                        <i class="bi bi-calendar me-2"></i>
+                                        Ngày tạo (cũ nhất)
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="?OrderBy=NewsTitle">
+                                        <i class="bi bi-sort-alpha-down me-2"></i>
+                                        Tiêu đề (A-Z)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="?OrderBy=NewsTitle desc">
+                                        <i class="bi bi-sort-alpha-up-alt me-2"></i>
+                                        Tiêu đề (Z-A)
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <partial name="~/Pages/Shared/_SearchBar.cshtml" model="@Model.Parameters.SearchTerm" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <partial name="~/Pages/Staff/News/Partials/_NewsTable.cshtml" model="(@Model.NewsArticles, @Model.Categories)" />
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+            <div>Tổng số: <span class="fw-bold">@Model.Pagination.MetaData.TotalCount</span> tin tức</div>
+            <partial name="~/Pages/Shared/_Pagination.cshtml" model="@Model.Pagination" />
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

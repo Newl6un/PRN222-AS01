@@ -1,0 +1,68 @@
+﻿@model IEnumerable<AccountViewModel>
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>ID</th>
+                <th>Tên tài khoản</th>
+                <th>Email</th>
+                <th>Vai trò</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td width="5%">@item.AccountId</td>
+                    <td width="30%">@item.AccountName</td>
+                    <td width="35%">@item.AccountEmail</td>
+                    <td width="15%">
+                        @switch (item.AccountRole)
+                        {
+                            case 0:
+                                <span class="badge bg-danger">Admin</span>
+                                break;
+                            case 1:
+                                <span class="badge bg-primary">Nhân viên</span>
+                                break;
+                            case 2:
+                                <span class="badge bg-success">Giảng viên</span>
+                                break;
+                            default:
+                                <span class="badge bg-secondary">Không xác định</span>
+                                break;
+                        }
+                    </td>
+                    <td width="15%" class="text-center">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-primary edit-account"
+                                    onclick="modalDialogManager.loadFormModal('@Url.Page("/Admin/Accounts/Index","Edit", new {  id = item.AccountId})', '#commonModal')">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            @if (item.AccountRole != 0)
+                            {
+                                <button type="button" class="btn btn-sm btn-danger delete-account"
+                                        data-id=""
+                                        onclick="modalDialogManager.loadFormModal('@Url.Page("/Admin/Accounts/Index","Delete", new {  id = item.AccountId})', '#commonModal')">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center py-5">
+        <div class="display-6 text-muted">
+            <i class="bi bi-people"></i>
+        </div>
+        <p class="lead text-muted">Không tìm thấy tài khoản nào</p>
+    </div>
+}

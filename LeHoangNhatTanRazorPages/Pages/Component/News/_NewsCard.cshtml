@@ -1,0 +1,25 @@
+﻿@model NewsArticleViewModel
+
+<div class="card h-100 shadow-sm">
+    <div class="card-header text-white">
+        <span class="badge bg-primary"> @Model.CategoryName</span>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@Model.NewsTitle</h5>
+        <p class="card-text text-muted"> <i class="bi bi-calendar"></i> @Model.FormattedCreatedDate | @Model.CreatorName</p>
+        <p class="card-text text-truncate-2"> @(new MarkupString(@Model.SnippetContent))</p>
+    </div>
+    <div class="d-grid ">
+        <a href="/News/Details?id=@Model.NewsArticleId" class="btn btn-outline-primary rounded-0 bi-border-left">
+            Đọc tiếp <i class="bi bi-arrow-right"></i>
+        </a>
+    </div>
+    <div class="card-footer  border-top-0">
+        <small class="text-muted mb-2">
+            Tags: @foreach (var tag in Model.Tags)
+            {
+                <span class="badge bg-secondary">@tag.TagName</span>
+            }
+        </small>
+    </div>
+</div>

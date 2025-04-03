@@ -40,15 +40,16 @@ namespace LeHoangNhatTanRazorPages.Extensions
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<INewsArticleService, NewsArticleService>();
             services.AddScoped<ISystemAccountService, SystemAccountService>();
+            services.AddScoped<IReportService, ReportService>();
         }
 
         public static void ConfigureAdminAccount(this IServiceCollection services)
         {
-            services.AddSingleton<AppConfiguration>(sp =>
+            services.AddSingleton<AppAccountConfiguration>(sp =>
             {
                 var config = sp.GetRequiredService<IConfiguration>();
                 var section = config.GetSection("AdminConfig");
-                return section.Get<AppConfiguration>()!;
+                return section.Get<AppAccountConfiguration>()!;
             });
         }
 

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<CategoryViewModel>
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>ID</th>
+                <th>Tên danh mục</th>
+                <th>Mô tả</th>
+                <th>Danh mục cha</th>
+                <th>Trạng thái</th>
+                <th>Tổng tin tức</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CategoryId</td>
+                    <td>@item.CategoryName</td>
+                    <td>@item.CategoryDesciption</td>
+                    <td>@item.ParentCategoryName</td>
+                    <td>
+                        <span class="badge @(item.IsActive ?  "bg-success" : "bg-secondary" )">@item.StatusText</span>
+                    </td>
+                    <td>@item.NewsCount</td>
+                    <td class="text-center">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-info"
+                                    onclick="modalDialogManager.loadFormModal('@Url.Page("/Staff/Categories/Index","Edit", new { id = item.CategoryId })', '#commonModal')">
+                                <i class="bi bi-pencil"></i>  Edit
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger"
+                                    onclick="modalDialogManager.loadFormModal('@Url.Page("/Staff/Categories/Index","Delete", new { id = item.CategoryId })', '#commonModal')">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center py-5">
+        <div class="display-6 text-muted">
+            <i class="bi bi-bookmark"></i>
+        </div>
+        <p class="lead text-muted">Không tìm thấy danh mục nào</p>
+    </div>
+}

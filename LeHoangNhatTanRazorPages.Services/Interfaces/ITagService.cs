@@ -1,11 +1,11 @@
-﻿using LeHoangNhatTanRazorPages.BO.Models;
-using LeHoangNhatTanRazorPages.Shared.RequestFeatures;
+﻿using LeHoangNhatTanRazorPages.Shared.RequestFeatures;
+using LeHoangNhatTanRazorPages.Shared.ViewModels.Tag;
 
 namespace LeHoangNhatTanRazorPages.Services.Interfaces
 {
     public interface ITagService
     {
-        Task<Tag?> GetTag(short tagId);
-        Task<PagedList<Tag>> GetTags(TagParameters tagParameters, bool trackChanges);
+        public Task<TagViewModel?> GetTagByNameAsync(string tagName, bool trackChanges);
+        public Task<PagedList<TagViewModel>> GetTagsAsync(TagParameters parameters, bool trackChanges);
     }
 }

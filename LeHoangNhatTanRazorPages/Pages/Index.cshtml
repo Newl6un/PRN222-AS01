@@ -1,0 +1,106 @@
+﻿@page
+@model LeHoangNhatTanRazorPages.Pages.IndexModel
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-md-12">
+            <div class="p-5 bg-primary text-white rounded shadow-lg">
+                <div class="container">
+                    <h1 class="display-4 fw-bold">FU News Management System</h1>
+                    <p class="lead mb-4">Hệ thống quản lý tin tức hiệu quả dành cho trường đại học</p>
+                    <a href="/News/Index" class="btn btn-light btn-lg fw-bold">
+                        <i class="bi bi-newspaper"></i> Xem tin tức
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-md-12">
+            <h2 class="mb-4 text-center">Tin tức nổi bật</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @foreach (var news in Model.HomeViewModel.FeaturedNews)
+                {
+                    <div class="col">
+                        <partial name="~/Pages/Component/News/_NewsCard.cshtml" model="news" />
+                    </div>
+                }
+            </div>
+            <div class="text-center mt-4">
+                <a href="/News/Index" class="btn btn-primary">
+                    Xem tất cả tin tức <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-md-12">
+            <h2 class="mb-4 text-center">Danh mục tin tức</h2>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                @foreach (var category in Model.HomeViewModel.Categories)
+                {
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body text-center">
+                                <div class="display-6 text-primary mb-3">
+                                    <i class="bi bi-bookmark"></i>
+                                </div>
+                                <h5 class="card-title">@category.CategoryName</h5>
+                                <p class="card-text text-muted small">@category.CategoryDesciption</p>
+                            </div>
+                            <div class="card-footer bg-transparent text-center">
+                                <a href="/News/Index?categoryId=@category.CategoryId" class="btn btn-outline-primary">
+                                    Xem tin tức <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Giới thiệu hệ thống</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Hệ thống quản lý tin tức FU News</h4>
+                            <p>FU News Management System là một phần mềm ứng dụng giúp các trường đại học và tổ chức giáo dục quản lý, tổ chức và xuất bản tin tức, nội dung hiệu quả đến website và các kênh khác.</p>
+                            <p>Hệ thống bao gồm các tính năng như tạo nội dung, quy trình phê duyệt, lên lịch, xuất bản và phân tích. Điều này giúp các trường đại học sắp xếp hoạt động tin tức một cách phù hợp, cải thiện giao tiếp với sinh viên và cộng đồng rộng lớn hơn, đồng thời tăng cường tương tác với đối tượng mục tiêu.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Tính năng chính</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <i class="bi bi-newspaper text-primary me-2"></i> Quản lý tin tức
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-bookmark text-primary me-2"></i> Quản lý danh mục
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-people text-primary me-2"></i> Quản lý tài khoản
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-tags text-primary me-2"></i> Quản lý tags
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-graph-up text-primary me-2"></i> Báo cáo thống kê
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

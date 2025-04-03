@@ -1,0 +1,56 @@
+﻿@model NewsArticleViewModel
+
+
+<form id="DeleteNewsForm-@Model.NewsArticleId" method="post" asp-page-handler="Delete" class="needs-validation">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model.NewsArticleId" />
+
+    <div class="modal-body">
+        <div class="text-center mb-4">
+            <i class="bi bi-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+            <h5 class="mt-3 text-danger">Xác nhận xóa tin tức</h5>
+            <p class="text-muted">Bạn có chắc chắn muốn xóa tin tức này? Hành động này không thể hoàn tác.</p>
+        </div>
+
+        <div class="card bg-light mb-3">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label fw-bold">Tiêu đề tin tức:</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">@Model.NewsTitle</p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label fw-bold">Tiêu đề phụ:</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">@Model.Headline</p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label fw-bold">Ngày tạo:</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">@Model.FormattedCreatedDate</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label class="col-sm-4 col-form-label fw-bold">Trạng thái:</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">@Model.StatusText</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer border-top-0">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+            <i class="bi bi-x-lg me-2"></i>Hủy
+        </button>
+        <button type="submit" class="btn btn-danger" form="DeleteNewsForm-@Model.NewsArticleId">
+            <i class="bi bi-trash me-2"></i>Xác nhận xóa
+        </button>
+    </div>
+</form>

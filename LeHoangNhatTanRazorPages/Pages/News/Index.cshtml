@@ -1,0 +1,81 @@
+﻿@page
+@model LeHoangNhatTanRazorPages.Pages.News.IndexModel
+<div class="container">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="/News/Index">Tin tức</a></li>
+        </ol>
+    </nav>
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2><i class="bi bi-newspaper"></i> Tin tức mới nhất</h2>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-8">
+            <div class="card shadow mb-4">
+                <div class="card-body p-4">
+                    <h1 class="mb-2">@Model.FeaturedNews.NewsTitle</h1>
+                    <div class="d-flex align-items-center text-muted mb-4">
+                        <div class="me-3">
+                            <i class="bi bi-calendar"></i> @Model.FeaturedNews.FormattedCreatedDate
+                        </div>
+                        <div>
+                            <i class="bi bi-person"></i> @Model.FeaturedNews.CreatorName
+                        </div>
+                    </div>
+
+                    <div class="news-content mb-4">
+                        @(new MarkupString(Model.FeaturedNews.SnippetContent))
+                    </div>
+                    <a href="/News/Details?id=@Model.FeaturedNews.NewsArticleId" class="btn btn-primary">Xem chi tiết</a>
+
+
+                    @if (Model.FeaturedNews.Tags.Any())
+                    {
+                        <div class="mt-4">
+                            <strong>Tags:</strong>
+                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                @foreach (var tag in Model.FeaturedNews.Tags)
+                                {
+                                    <a href="/News/Index?Tag=@tag.TagName" class="badge bg-secondary text-decoration-none">
+                                        @tag.TagName
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                @foreach (var news in Model.NewsArticles)
+                {
+                    <div class="col">
+                        <partial name="~/Pages/Component/News/_NewsCard.cshtml" model="news" />
+                    </div>
+                }
+            </div>
+            <div class="text-center mt-4">
+                <partial name="~/Pages/Shared/_Pagination.cshtml" model="@Model.Pagination" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <!-- Tìm kiếm -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="sidebar-title">Tìm kiếm</h5>
+                    <partial name="~/Pages/Shared/_SearchBar.cshtml" model="@Model.Parameters.SearchTerm" />
+                </div>
+            </div>
+            <div class="card shadow mb-4">
+                <partial name="Partials/_CategoryFilter.cshtml" model="@Model.Categories" />
+            </div>
+            <div class="card shadow mb-4">
+                <partial name="Partials/_TagFilter.cshtml" model="@Model.Tags" />
+            </div>
+        </div>
+    </div>
+</div>

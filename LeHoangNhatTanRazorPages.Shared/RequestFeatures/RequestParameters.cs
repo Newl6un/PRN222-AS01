@@ -2,8 +2,6 @@
 {
     public abstract class RequestParameters
     {
-        const int maxPageSize = 50;
-
         private int _pageNumber = 1;
         public int PageNumber
         {
@@ -28,11 +26,17 @@
             }
             set
             {
-                _pageSize = (value > maxPageSize) ? maxPageSize : value;
+                if (value == 0 || value < 0)
+                    _pageSize = 10;
+                else _pageSize = value;
             }
         }
 
+        public bool? TakeAll { get; set; } = false;
+
         public string? OrderBy { get; set; }
+
+        public string? SearchTerm { get; set; }
     }
 
 }

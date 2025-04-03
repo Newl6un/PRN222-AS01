@@ -1,0 +1,47 @@
+﻿@model PaginationViewModel
+
+@if (Model.MetaData.TotalPages > 1)
+{
+    <nav aria-label="Phân trang">
+        <ul class="pagination">
+            <li class="page-item @(Model.MetaData.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Model.GetPageUrl(1)" aria-label="Trang đầu">
+                    <span aria-hidden="true"><i class="bi bi-chevron-double-left"></i></span>
+                </a>
+            </li>
+            <li class="page-item @(Model.MetaData.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Model.GetPageUrl(Model.MetaData.CurrentPage - 1)" aria-label="Trang trước">
+                    <span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+                </a>
+            </li>
+
+            @{
+                var startPage = Math.Max(1, Model.MetaData.CurrentPage - 2);
+                var endPage = Math.Min(Model.MetaData.TotalPages, startPage + 4);
+
+                if (endPage - startPage < 4)
+                {
+                    startPage = Math.Max(1, endPage - 4);
+                }
+            }
+
+            @for (int i = startPage; i <= endPage; i++)
+            {
+                <li class="page-item @(i == Model.MetaData.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Model.GetPageUrl(i)">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(Model.MetaData.CurrentPage == Model.MetaData.TotalPages ? "disabled" : "")">
+                <a class="page-link" href="@Model.GetPageUrl(Model.MetaData.CurrentPage + 1)" aria-label="Trang sau">
+                    <span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </li>
+            <li class="page-item @(Model.MetaData.CurrentPage == Model.MetaData.TotalPages ? "disabled" : "")">
+                <a class="page-link" href="@Model.GetPageUrl(Model.MetaData.TotalPages)" aria-label="Trang cuối">
+                    <span aria-hidden="true"><i class="bi bi-chevron-double-right"></i></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+}

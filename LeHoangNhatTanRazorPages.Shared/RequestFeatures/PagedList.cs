@@ -22,5 +22,10 @@
             MetaData = metaData;
             AddRange(list);
         }
+
+        public static PagedList<T> ToPagedList(IEnumerable<T> source, MetaData metaData)
+        {
+            return new PagedList<T>(source, metaData);
+        }
     }
 }

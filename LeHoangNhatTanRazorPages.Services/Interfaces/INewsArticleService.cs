@@ -1,11 +1,15 @@
-﻿using LeHoangNhatTanRazorPages.Shared.DataTransferObjects.NewsArticle;
-using LeHoangNhatTanRazorPages.Shared.RequestFeatures;
+﻿using LeHoangNhatTanRazorPages.Shared.RequestFeatures;
+using LeHoangNhatTanRazorPages.Shared.ViewModels.News;
 
 namespace LeHoangNhatTanRazorPages.Services.Interfaces
 {
     public interface INewsArticleService
     {
-        Task<NewsArticleDto?> GetNewsArticle(short newsArticleId);
-        Task<PagedList<NewsArticleDto>> GetNewsArticles(NewsArticleParameters newsArticleParameters, bool trackChanges);
+        Task<PagedList<NewsArticleViewModel>> GetNewsArticlesAsync(NewsArticleParameters parameters, bool trackChanges);
+        Task<NewsArticleViewModel?> GetNewsArticleAsync(string newsArticleId, bool trackChanges);
+        Task CreateNewsArticleAsync(NewsArticleViewModel newsArticleViewModel);
+        Task UpdateNewsArticleAsync(NewsArticleViewModel newsArticleViewModel);
+        Task DeleteNewsArticleAsyncAsync(string newsArticleId);
+
     }
 }

@@ -1,0 +1,45 @@
+﻿@page
+@model LeHoangNhatTanRazorPages.Pages.Admin.Accounts.IndexModel
+@{
+    ViewData["Title"] = "Quản lý tài khoản";
+}
+
+<partial name="~/Pages/Shared/_SessionAuth.cshtml" />
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-people"></i> Quản lý tài khoản</h2>
+        <button type="button" class="btn btn-primary" onclick="modalDialogManager.loadFormModal('@Url.Page("/Admin/Accounts/Index","Create")', '#commonModal')">
+            <i class="bi bi-person-plus"></i> Tạo tài khoản mới
+        </button>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h5 class="mb-0">Danh sách tài khoản</h5>
+                </div>
+                <div class="col-md-6">
+                    <partial name="~/Pages/Shared/_SearchBar.cshtml" model="@Model.Parameters.SearchTerm" />
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <partial name="Partials/_AccountTable" model="@Model.Accounts" />
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+            <div>Tổng số: <span class="fw-bold">@Model.Pagination.MetaData.TotalCount</span> tài khoản</div>
+            <partial name="~/Pages/Shared/_Pagination.cshtml" model="@Model.Pagination" />
+        </div>
+    </div>
+</div>
+
+@Html.AntiForgeryToken()
+
+@section Scripts {
+    <script src="~/js/accounts.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

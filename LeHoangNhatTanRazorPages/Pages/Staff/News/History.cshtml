@@ -1,0 +1,110 @@
+﻿@page
+@model LeHoangNhatTanRazorPages.Pages.Staff.News.HistoryModel
+@{
+}
+<partial name="~/Pages/Shared/_SessionAuth.cshtml" />
+
+<div class="container-fluid">
+    <h2 class="mb-4"><i class="bi bi-clock-history"></i> Lịch sử tin tức</h2>
+
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h5 class="mb-0">Danh sách tin tức đã tạo</h5>
+                </div>
+                <div class="col-md-6">
+                    <partial name="~/Pages/Shared/_SearchBar.cshtml" model="@Model.Parameters.SearchTerm" />
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Tiêu đề</th>
+                            <th>Danh mục</th>
+                            <th>Tags</th>
+                            <th>Ngày tạo</th>
+                            <th>Ngày chỉnh sửa</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.NewsArticles)
+                        {
+                            <tr>
+                                <td width="10%">@item.NewsArticleId</td>
+                                <td width="25%">
+                                    <div class="fw-semibold">@item.NewsTitle</div>
+                                    <div class="text-muted small">@item.Headline</div>
+                                </td>
+                                <td width="10%">@item.CategoryName</td>
+                                <td width="15%">
+                                    @if (item.Tags != null && item.Tags.Any())
+                                    {
+                                        <div class="d-flex flex-wrap gap-1">
+                                            @foreach (var tag in item.Tags.Take(3))
+                                            {
+                                                <span class="badge bg-secondary">@tag.TagName</span>
+                                            }
+                                            @if (item.Tags.Count > 3)
+                                            {
+                                                <span class="badge bg-info">+@(item.Tags.Count - 3)</span>
+                                            }
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted small">Không có tags</span>
+                                    }
+                                </td>
+                                <td width="10%">@item.CreatedDate?.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td width="10%">@(item.ModifiedDate?.ToString("dd/MM/yyyy HH:mm") ?? "-")</td>
+                                <td width="5%">
+                                    @if (item.NewsStatus)
+                                    {
+                                        <span class="badge bg-success">Hoạt động</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">Không hoạt động</span>
+                                    }
+                                </td>
+                                <td width="10%" class="text-center">
+                                    <a href="/News/Details?id=@item.NewsArticleId" class="btn btn-sm btn-info">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (!Model.NewsArticles.Any())
+            {
+                <div class="text-center py-5">
+                    <div class="display-6 text-muted">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <p class="lead text-muted">Bạn chưa tạo tin tức nào</p>
+                </div>
+            }
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+            <div>Tổng số: <span class="fw-bold">@Model.Pagination.MetaData.TotalCount</span> tin tức</div>
+            <partial name="~/Pages/Shared/_Pagination.cshtml" model="@Model.Pagination" />
+        </div>
+    </div>
+</div>
+
+<style>
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.25em 0.5em;
+    }
+</style>

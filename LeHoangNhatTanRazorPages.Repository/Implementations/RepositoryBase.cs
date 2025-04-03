@@ -26,19 +26,19 @@ namespace LeHoangNhatTanRazorPages.Repository.Implementation
             _dao.Delete(entity);
         }
 
-        public async Task<IEnumerable<T>> FindAll(bool trackChanges)
+        public async Task<IEnumerable<T>> GetAllAsync(bool trackChanges)
         {
-            return await _dao.FindAll(trackChanges).ToListAsync();
+            return await _dao.GetAll(trackChanges).ToListAsync();
         }
 
-        public async Task<PagedList<T>> FindAll(RequestParameters requestParameters, bool trackChanges)
+        public async Task<PagedList<T>> GetPagedAsync(RequestParameters requestParameters, bool trackChanges)
         {
-            return await _dao.FindAll(trackChanges).ToPagedList(requestParameters);
+            return await _dao.GetAll(trackChanges).ToPagedListAsync(requestParameters);
         }
 
-        public async Task<T?> FindByIdAsync(bool trackChanges, params object[] keyValues)
+        public async Task<T?> GetByIdAsync(bool trackChanges, params object[] keyValues)
         {
-            return await _dao.FindByIdAsync(trackChanges, keyValues);
+            return await _dao.GetByIdAsync(trackChanges, keyValues);
         }
 
         public void Update(T entity)

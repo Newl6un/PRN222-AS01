@@ -6,5 +6,6 @@
         ICategoryService Category { get; }
         ITagService Tag { get; }
         INewsArticleService NewsArticle { get; }
+        IReportService Report { get; }
     }
 }

@@ -16,21 +16,21 @@ namespace LeHoangNhatTanRazorPages.DataAccess.Implementations
             _fUNewsManagementContext = fUNewsManagementContext;
         }
 
-        public async Task<Entity?> FindByIdAsync(bool trackChanges, params object[] keyValues)
+        public async Task<Entity?> GetByIdAsync(bool trackChanges, params object[] keyValues)
         {
             var entity = await _fUNewsManagementContext.FindAsync<Entity>(keyValues);
             if (!trackChanges && entity != null)
                 _fUNewsManagementContext.Entry(entity).State = EntityState.Detached;
             return entity;
         }
-        public IQueryable<Entity> FindAll(bool trackChanges)
+        public IQueryable<Entity> GetAll(bool trackChanges)
         => !trackChanges ?
              _fUNewsManagementContext.Set<Entity>()
              .AsNoTracking() :
              _fUNewsManagementContext.Set<Entity>();
 
 
-        public IQueryable<Entity> FindByCondition(Expression<Func<Entity, bool>> expression, bool trackChanges)
+        public IQueryable<Entity> GetByCondition(Expression<Func<Entity, bool>> expression, bool trackChanges)
         => !trackChanges ?
             _fUNewsManagementContext.Set<Entity>()
             .Where(expression)

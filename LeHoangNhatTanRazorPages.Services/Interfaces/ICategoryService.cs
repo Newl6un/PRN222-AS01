@@ -1,11 +1,22 @@
-﻿using LeHoangNhatTanRazorPages.BO.Models;
-using LeHoangNhatTanRazorPages.Shared.RequestFeatures;
+﻿using LeHoangNhatTanRazorPages.Shared.RequestFeatures;
+using LeHoangNhatTanRazorPages.Shared.ViewModels.Category;
+
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LeHoangNhatTanRazorPages.Services.Interfaces
 {
     public interface ICategoryService
     {
-        Task<Category?> GetCategory(short categoryId);
-        Task<PagedList<Category>> GetCategories(CategoryParameters categoryParameters, bool trackChanges);
+        public Task<PagedList<CategoryViewModel>> GetCategoriesAsync(CategoryParameters parameters, bool trackChanges);
+
+        public Task<CategoryViewModel> GetCategoryAsync(short categoryId, bool trackChanges);
+
+        public Task<IEnumerable<SelectListItem>> GetParentCategorySelectListAsync(short? parentId = null);
+
+        Task CreateCategoryAsync(CategoryViewModel categoryViewModel);
+
+        Task UpdateCategoryAsync(CategoryViewModel categoryViewModel);
+
+        Task DeleteCategoryAsync(short categoryId);
     }
 }

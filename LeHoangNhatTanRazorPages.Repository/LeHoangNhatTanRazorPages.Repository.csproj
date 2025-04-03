@@ -7,6 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="System.Linq.Dynamic.Core" Version="1.6.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\LeHoangNhatTanRazorPages.BO\LeHoangNhatTanRazorPages.BO.csproj" />
 		<ProjectReference Include="..\LeHoangNhatTanRazorPages.DataAccess\LeHoangNhatTanRazorPages.DataAccess.csproj" />
 		<ProjectReference Include="..\LeHoangNhatTanRazorPages.Shared\LeHoangNhatTanRazorPages.Shared.csproj" />

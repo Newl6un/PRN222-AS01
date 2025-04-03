@@ -5,6 +5,10 @@ namespace LeHoangNhatTanRazorPages.Repository.Interfaces
 {
     public interface INewsArticleRepository : IRepositoryBase<NewsArticle>
     {
-        Task<PagedList<NewsArticle>> GetNewsArticles(NewsArticleParameters newsArticleParameters, bool trackChanges);
+        public Task<PagedList<NewsArticle>> GetNewsArticlesAsync(NewsArticleParameters parameters, bool trackChanges);
+
+        public Task<NewsArticle?> GetNewsArticleAsync(string newsArticleId, bool trackChanges);
+
+        public new Task Create(NewsArticle entity);
     }
 }

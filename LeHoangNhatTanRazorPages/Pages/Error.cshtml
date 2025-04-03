@@ -1,0 +1,75 @@
+﻿@page
+@model LeHoangNhatTanRazorPages.Pages.ErrorModel
+@{
+    ViewData["Title"] = "Lỗi";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-danger">
+                <div class="card-body text-center p-5">
+                    <div class="display-1 text-danger mb-4">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+                    <h1 class="mb-3">@(Model.ErrorData.StatusCode != null ? $"Lỗi {Model.ErrorData.StatusCode}" : "Đã xảy ra lỗi")</h1>
+
+                    @if (Model.ErrorData.ShowRequestId)
+                    {
+                        <p class="text-muted">
+                            <strong>Mã yêu cầu:</strong> <code>@Model.ErrorData.RequestId</code>
+                        </p>
+                    }
+
+                    <div class="mb-4">
+                        <p class="lead">
+                            @switch (Model.ErrorData.StatusCode)
+                            {
+                                case 404:
+                                    <span>Trang bạn đang tìm kiếm không tồn tại.</span>
+                                    break;
+                                case 403:
+                                    <span>Bạn không có quyền truy cập trang này.</span>
+                                    break;
+                                case 500:
+                                    <span>Đã xảy ra lỗi máy chủ. Vui lòng thử lại sau.</span>
+                                    break;
+                                default:
+                                    <span>Đã xảy ra lỗi không mong muốn.</span>
+                                    break;
+                            }
+                        </p>
+                    </div>
+
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="/" class="btn btn-primary">
+                            <i class="bi bi-house-door"></i> Trang chủ
+                        </a>
+                        <a href="javascript:history.back()" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Quay lại
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.ErrorData.ErrorDetails != null && !string.IsNullOrEmpty(Model.ErrorData.ErrorDetails.Message) && Model.ErrorData.ShowErrorDetails)
+            {
+                <div class="card mt-4 shadow">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="mb-0">Chi tiết lỗi</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>Thông báo lỗi:</h6>
+                        <p class="mb-3">@Model.ErrorData.ErrorDetails.Message</p>
+
+                        @if (!string.IsNullOrEmpty(Model.ErrorData.ErrorDetails.StackTrace))
+                        {
+                            <h6>Stack Trace:</h6>
+                            <pre class="bg-light p-3 rounded small">@Model.ErrorData.ErrorDetails.StackTrace</pre>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

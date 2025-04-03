@@ -1,0 +1,18 @@
+﻿@model string?
+
+<form method="get" class="mb-0">
+    @foreach (var param in Context.Request.Query)
+    {
+        if (param.Key != "searchTerm" && param.Key != "page")
+        {
+            <input type="hidden" name="@param.Key" value="@param.Value" />
+        }
+    }
+    <div class="input-group">
+        <input type="text" class="form-control" name="searchTerm" value="@Model"
+               placeholder="Tìm kiếm..." aria-label="Tìm kiếm">
+        <button class="btn btn-light" type="submit">
+            <i class="bi bi-search "></i>
+        </button>
+    </div>
+</form>

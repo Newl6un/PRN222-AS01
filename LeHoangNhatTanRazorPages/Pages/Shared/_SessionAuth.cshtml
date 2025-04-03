@@ -1,0 +1,30 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var httpContext = HttpContextAccessor.HttpContext;
+    var role = httpContext?.Session.GetInt32("UserRole");
+    var isAuthenticated = role.HasValue;
+
+    if (!isAuthenticated)
+    {
+        httpContext.Response.Redirect("/Auth/Login");
+        return;
+    }
+
+    // Kiểm tra quyền truy cập tùy theo vai trò
+    var currentPath = httpContext?.Request.Path.Value?.ToLower() ?? "";
+
+    // Nếu là trang Admin nhưng người dùng không phải admin
+    if (currentPath.Contains("/admin/") && role != 0)
+    {
+        httpContext.Response.Redirect("/Auth/AccessDenied");
+        return;
+    }
+
+    // Nếu là trang Staff nhưng người dùng không phải staff hoặc admin
+    if (currentPath.Contains("/staff/") && role != 1 && role != 0)
+    {
+        httpContext.Response.Redirect("/Auth/AccessDenied");
+        return;
+    }
+}

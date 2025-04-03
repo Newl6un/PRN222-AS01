@@ -10,10 +10,10 @@ namespace LeHoangNhatTanRazorPages.Repository.Interfaces
 
         void Update(T entity);
 
-        Task<T?> FindByIdAsync(bool trackChanges, params object[] keyValues);
+        Task<T?> GetByIdAsync(bool trackChanges, params object[] keyValues);
 
-        Task<IEnumerable<T>> FindAll(bool trackChanges);
+        Task<IEnumerable<T>> GetAllAsync(bool trackChanges);
 
-        Task<PagedList<T>> FindAll(RequestParameters requestParameters, bool trackChanges);
+        Task<PagedList<T>> GetPagedAsync(RequestParameters requestParameters, bool trackChanges);
     }
 }

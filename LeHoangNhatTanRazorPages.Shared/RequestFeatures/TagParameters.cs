@@ -4,7 +4,9 @@
     {
         public TagParameters() => OrderBy = "TagName";
 
-        public string? TagName { get; set; }
+        public bool IsIncludeNews { get; set; } = false;
+
+        public bool HasMostNews { get; set; } = false;
     }
 
 }

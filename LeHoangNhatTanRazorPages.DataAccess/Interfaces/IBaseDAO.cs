@@ -7,9 +7,9 @@ namespace LeHoangNhatTanRazorPages.DataAccess.Interfaces
         void Create(T entity);
         void Update(T entity);
         void Delete(T entity);
-        IQueryable<T> FindAll(bool trackChanges);
-        IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges);
-        Task<T?> FindByIdAsync(bool trackChanges, params object[] keyValues);
+        IQueryable<T> GetAll(bool trackChanges);
+        IQueryable<T> GetByCondition(Expression<Func<T, bool>> expression, bool trackChanges);
+        Task<T?> GetByIdAsync(bool trackChanges, params object[] keyValues);
     }
 
 }

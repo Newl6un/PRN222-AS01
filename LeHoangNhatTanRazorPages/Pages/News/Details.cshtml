@@ -1,0 +1,144 @@
+﻿@page
+@model LeHoangNhatTanRazorPages.Pages.News.DetailsModel
+@{
+    ViewData["Title"] = Model.NewsArticle.NewsTitle;
+}
+
+<div class="container py-4">
+    <!-- Breadcrumb -->
+
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="/News/Index">Tin tức</a></li>
+            <li class="breadcrumb-item"><a href="/News/Index?CategoryId=@Model.NewsArticle.CategoryId">@Model.NewsArticle.CategoryName</a></li>
+            <li class="breadcrumb-item"><a href="/News/Index?CategoryId=@Model.NewsArticle.CategoryId">@Model.NewsArticle.NewsTitle</a></li>
+        </ol>
+    </nav>
+    <div class="row g-4">
+        <!-- Cột chính -->
+        <div class="col-lg-8">
+            <!-- Bài viết chính -->
+            <article class="card shadow-sm border-0 mb-4">
+                <div class="card-body p-4">
+                    <!-- Header bài viết -->
+                    <div class="article-header mb-4">
+                        <a href="/News/Index?CategoryId=@Model.NewsArticle.CategoryId"
+                           class="badge bg-primary text-decoration-none mb-3 px-3 py-2">
+                            <i class="bi bi-bookmark-fill me-1"></i>@Model.NewsArticle.CategoryName
+                        </a>
+
+                        <h1 class="display-5 mb-3">@Model.NewsArticle.NewsTitle</h1>
+
+                        <div class="d-flex flex-wrap align-items-center gap-3 text-muted">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-person-circle me-2"></i>
+                                @Model.NewsArticle.CreatorName
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-calendar3 me-2"></i>
+                                @Model.NewsArticle.FormattedCreatedDate
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nội dung bài viết -->
+                    <div class="article-content mb-4">
+                        @Html.Raw(Model.NewsArticle.NewsContent)
+                    </div>
+
+                    <!-- Tags -->
+                    @if (Model.NewsArticle.Tags.Any())
+                    {
+                        <div class="mt-4 pt-4 border-top">
+                            <h6 class="fw-bold mb-3">
+                                <i class="bi bi-tags-fill me-2"></i>Tags
+                            </h6>
+                            <div class="d-flex flex-wrap gap-2">
+                                @foreach (var tag in Model.NewsArticle.Tags)
+                                {
+                                    <a href="/News/Index?Tag=@tag.TagName"
+                                       class="btn btn-outline-secondary btn-sm rounded-pill">
+                                        <i class="bi bi-tag-fill me-1"></i>
+                                        @tag.TagName
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </article>
+
+            <!-- Tin tức mới nhất -->
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-clock-history me-2"></i>Tin tức mới nhất
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        @foreach (var news in Model.LatestNews)
+                        {
+                            <div class="col">
+                                <partial name="~/Pages/Component/News/_NewsCard.cshtml" model="news" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Tìm kiếm -->
+            <div class="card shadow mb-4">
+                <div class="card-body p-3">
+                    <h5 class="fw-bold mb-3">
+                        <i class="bi bi-search me-2"></i>Tìm kiếm
+                    </h5>
+                    <partial name="~/Pages/Shared/_SearchBar.cshtml" model="@Model.Parameters.SearchTerm" />
+                </div>
+            </div>
+
+            <!-- Tin tức liên quan -->
+            <div class="card shadow  mb-4">
+                <partial name="Partials/_RelatedNews" model="@Model.RelatedNews" />
+            </div>
+
+            <!-- Danh mục -->
+            <div class="card shadow  mb-4">
+                <partial name="Partials/_CategoryFilter" model="@Model.Categories" />
+            </div>
+
+            <!-- Tags phổ biến -->
+            <div class="card shadow  mb-4">
+                <partial name="Partials/_TagFilter.cshtml" model="@Model.Tags" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    /* Style cho nội dung bài viết */
+    .article-content {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+    /* Responsive typography */
+    @@media (max-width: 768px) {
+        h1 .display-5 {
+            font-size: calc(1.2rem + 1.5vw);
+        }
+    }
+</style>

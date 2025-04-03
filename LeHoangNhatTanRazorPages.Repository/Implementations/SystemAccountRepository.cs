@@ -12,9 +12,20 @@ namespace LeHoangNhatTanRazorPages.Repository.Implementation
         {
         }
 
-        public async Task<SystemAccount?> FindSystemAccount(string email, string password, bool trackChanges)
+        public async Task<SystemAccount?> GetAccountAsync(string email, string password, bool trackChanges)
         {
-            return await _dao.FindByCondition(x => x.AccountEmail == email && x.AccountPassword == password, trackChanges).FirstOrDefaultAsync();
+            var account = await _dao.GetByCondition(x => x.AccountEmail == email && x.AccountPassword == password, trackChanges).FirstOrDefaultAsync();
+
+            return account;
+        }
+
+        public async Task<SystemAccount?> GetAccountAsync(int accountId, bool trackChanges)
+        {
+            var account = await _dao.GetByCondition(x => x.AccountId == accountId, trackChanges)
+                .Include(a => a.NewsArticles)
+                .FirstOrDefaultAsync();
+
+            return account;
         }
     }
 }
