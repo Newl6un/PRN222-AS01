@@ -44,6 +44,8 @@ namespace LeHoangNhatTanRazorPages.Pages.Staff.News
 
                 // Thiết lập tham số để lấy tags cùng với tin tức
                 Parameters.CreatedById = userId.Value;
+                Parameters.IncludeTags = true;
+                Parameters.IncludeCategory = true;
 
                 var result = await _serviceManager.NewsArticle.GetNewsArticlesAsync(Parameters, false);
                 NewsArticles = result;
