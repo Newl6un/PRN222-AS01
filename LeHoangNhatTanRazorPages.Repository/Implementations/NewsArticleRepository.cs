@@ -36,7 +36,7 @@ namespace LeHoangNhatTanRazorPages.Repository.Implementation
         public new async Task Create(NewsArticle entity)
         {
             var lastestNews = await _dao.GetAll(false)
-                .OrderByDescending(x => x.CreatedDate)
+                .OrderByDescending(x => Convert.ToInt32(x.NewsArticleId))
                 .FirstOrDefaultAsync();
             if (lastestNews != null)
             {

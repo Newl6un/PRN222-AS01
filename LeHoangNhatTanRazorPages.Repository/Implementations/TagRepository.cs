@@ -59,6 +59,7 @@ namespace LeHoangNhatTanRazorPages.Repository.Implementation
                 .FirstOrDefaultAsync();
 
             entity.TagId = lastestTag?.TagId + 1 ?? 1;
+            base.Create(entity);
         }
     }
 }

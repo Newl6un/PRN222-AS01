@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TagViewModel>
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Tên thẻ</th>
+                <th>Mô tả</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TagName</td>
+                    <td>@item.Note</td>
+                    <td class="text-center">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-info"
+                                    onclick="modalDialogManager.loadFormModal('@Url.Page("/Staff/Tags/Index","Edit", new { id = item.TagId })', '#commonModal')">
+                                <i class="bi bi-pencil"></i>  Edit
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger"
+                                    onclick="modalDialogManager.loadFormModal('@Url.Page("/Staff/Tags/Index","Delete", new { id = item.TagId })', '#commonModal')">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center py-5">
+        <div class="display-6 text-muted">
+            <i class="bi bi-bookmark"></i>
+        </div>
+        <p class="lead text-muted">Không tìm thấy thẻ nào</p>
+    </div>
+}

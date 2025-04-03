@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="news-content mb-4">
-                        @(new MarkupString(Model.FeaturedNews.SnippetContent))
+                        @Html.Raw(Model.FeaturedNews.SnippetContent)
                     </div>
                     <a href="/News/Details?id=@Model.FeaturedNews.NewsArticleId" class="btn btn-primary">Xem chi tiết</a>
 

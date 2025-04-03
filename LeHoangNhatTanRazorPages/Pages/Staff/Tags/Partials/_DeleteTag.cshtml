@@ -1,0 +1,43 @@
+﻿@model TagViewModel
+
+
+<form id="DeletetagForm-@Model.TagId" method="post" asp-page-handler="Delete" class="needs-validation">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model.TagId" />
+
+    <div class="modal-body">
+        <div class="text-center mb-4">
+            <i class="bi bi-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+            <h5 class="mt-3 text-danger">Xác nhận xóa thẻ</h5>
+            <p class="text-muted">Bạn có chắc chắn muốn xóa thẻ này? Hành động này không thể hoàn tác.</p>
+        </div>
+
+        <div class="card bg-light mb-3">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label fw-bold">Tên thẻ:</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">@Model.TagName</p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label fw-bold">Mô tả thẻ:</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">@Model.Note</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer border-top-0">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+            <i class="bi bi-x-lg me-2"></i>Hủy
+        </button>
+        <button type="submit" class="btn btn-danger" form="DeletetagForm-@Model.TagId">
+            <i class="bi bi-trash me-2"></i>Xác nhận xóa
+        </button>
+    </div>
+</form>
+

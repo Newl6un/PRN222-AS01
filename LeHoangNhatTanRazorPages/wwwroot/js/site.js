@@ -96,3 +96,27 @@ $(document).ready(function () {
         modalDialogManager.submitFormModal($(this), '#commonModal');
     });
 });
+
+var connection = new signalR.HubConnectionBuilder()
+    .withUrl("/newsHub")
+    .configureLogging(signalR.LogLevel.Information)
+    .build();
+
+connection.on("ReceiveNewsUpdate", function (message) {
+    // alert("📢 News Update: " + message);
+    location.reload();
+});
+
+connection.on("ReceiveNewsEdit", function (message) {
+    //alert("✏️ News Edited: " + message);
+    location.reload();
+});
+
+connection.on("ReceiveNewsDelete", function (message) {
+    //alert("🗑️ News Deleted: " + message);
+    location.reload();
+});
+
+connection.start()
+    .then(() => console.log("✅ Connected to SignalR"))
+    .catch(err => console.error("❌ SignalR Connection Error: ", err));

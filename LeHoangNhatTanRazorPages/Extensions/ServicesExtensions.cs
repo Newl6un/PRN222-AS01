@@ -57,5 +57,8 @@ namespace LeHoangNhatTanRazorPages.Extensions
         {
             services.AddScoped(typeof(Lazy<>), typeof(Lazier<>));
         }
+
+        public static void ConfigureSignalR(this IServiceCollection services)
+         => services.AddSignalR();
     }
 }

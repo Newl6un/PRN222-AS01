@@ -54,7 +54,7 @@
                             var isAuthenticated = role.HasValue;
                         }
 
-                        @if (isAuthenticated && (role == 0 || role == 1))
+                        @if (isAuthenticated && role == 1)
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle @(Context.Request.Path.StartsWithSegments("/Staff") ? "active" : "")"
@@ -70,6 +70,11 @@
                                     <li>
                                         <a class="dropdown-item" href="/Staff/Categories/Index">
                                             <i class="bi bi-bookmark"></i> Quản lý danh mục
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/Staff/Tags/Index">
+                                            <i class="bi bi-tag"></i> Quản lý thẻ
                                         </a>
                                     </li>
                                     <li>

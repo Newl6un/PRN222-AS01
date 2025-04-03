@@ -10,6 +10,8 @@ namespace LeHoangNhatTanRazorPages.MappingProfiles
         public TagProfile()
         {
             CreateMap<Tag, TagViewModel>();
+
+            CreateMap<TagViewModel, Tag>();
         }
     }
 }

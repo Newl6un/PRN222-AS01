@@ -7,7 +7,7 @@
     <div class="card-body">
         <h5 class="card-title">@Model.NewsTitle</h5>
         <p class="card-text text-muted"> <i class="bi bi-calendar"></i> @Model.FormattedCreatedDate | @Model.CreatorName</p>
-        <p class="card-text text-truncate-2"> @(new MarkupString(@Model.SnippetContent))</p>
+        <p class="card-text text-truncate-2"> @Html.Raw(Model.SnippetContent)</p>
     </div>
     <div class="d-grid ">
         <a href="/News/Details?id=@Model.NewsArticleId" class="btn btn-outline-primary rounded-0 bi-border-left">

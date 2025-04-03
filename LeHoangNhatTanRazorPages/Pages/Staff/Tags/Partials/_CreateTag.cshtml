@@ -1,0 +1,20 @@
+﻿@model TagViewModel
+
+<form id="tagForm" method="post" asp-page-handler="Create">
+    <input type="hidden" asp-for="TagId" />
+
+    <div class="mb-3">
+        <label asp-for="TagName" class="form-label">Tên danh mục <span class="text-danger">*</span></label>
+        <input asp-for="TagName" class="form-control" maxlength="100" required />
+        <span asp-validation-for="TagName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Note" class="form-label">Mô tả <span class="text-danger">*</span></label>
+        <textarea asp-for="Note" class="form-control" rows="3" maxlength="250" required></textarea>
+        <span asp-validation-for="Note" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-3 d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="submit" class="btn btn-primary" form="tagForm">Tạo thẻ</button>
+    </div>
+</form>

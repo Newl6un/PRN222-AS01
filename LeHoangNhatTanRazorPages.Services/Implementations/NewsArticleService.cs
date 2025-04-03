@@ -2,9 +2,12 @@
 
 using LeHoangNhatTanRazorPages.BO.Models;
 using LeHoangNhatTanRazorPages.Repository.Interfaces;
+using LeHoangNhatTanRazorPages.Services.Hubs;
 using LeHoangNhatTanRazorPages.Services.Interfaces;
 using LeHoangNhatTanRazorPages.Shared.RequestFeatures;
 using LeHoangNhatTanRazorPages.Shared.ViewModels.News;
+
+using Microsoft.AspNetCore.SignalR;
 
 namespace LeHoangNhatTanRazorPages.Services.Implementations
 {
@@ -12,11 +15,13 @@ namespace LeHoangNhatTanRazorPages.Services.Implementations
     {
         private readonly IRepositoryManager _repositoryManager;
         private readonly IMapper _mapper;
+        private readonly IHubContext<NewsHub> _newsHubContext;
 
-        public NewsArticleService(IRepositoryManager repositoryManager, IMapper mapper)
+        public NewsArticleService(IRepositoryManager repositoryManager, IMapper mapper, IHubContext<NewsHub> newsHubContext)
         {
             _repositoryManager = repositoryManager;
             _mapper = mapper;
+            _newsHubContext = newsHubContext;
         }
 
         public async Task CreateNewsArticleAsync(NewsArticleViewModel newsArticleViewModel)
@@ -45,6 +50,7 @@ namespace LeHoangNhatTanRazorPages.Services.Implementations
 
             await _repositoryManager.NewsArticle.Create(newsArticle);
             await _repositoryManager.SaveAsync();
+            await _newsHubContext.Clients.All.SendAsync("ReceiveNewsUpdate", $"New article published: {newsArticleViewModel.NewsTitle}");
         }
 
         public async Task DeleteNewsArticleAsyncAsync(string newsArticleId)
@@ -56,6 +62,7 @@ namespace LeHoangNhatTanRazorPages.Services.Implementations
 
             _repositoryManager.NewsArticle.Delete(newsArticle);
             await _repositoryManager.SaveAsync();
+            await _newsHubContext.Clients.All.SendAsync("ReceiveNewsUpdate", "An article was deleted!");
         }
 
         public async Task<NewsArticleViewModel?> GetNewsArticleAsync(string newsArticleId, bool trackChanges)
@@ -134,6 +141,7 @@ namespace LeHoangNhatTanRazorPages.Services.Implementations
             // Cập nhật các field khác
 
             await _repositoryManager.SaveAsync();
+            await _newsHubContext.Clients.All.SendAsync("ReceiveNewsEdit", $"Article updated: {newsArticle.NewsTitle}");
         }
     }
 }
